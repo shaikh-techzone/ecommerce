@@ -10,8 +10,12 @@ import Product from './pages/Product';
 import ProductDetails from './pages/ProductDetails';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
+import axios from 'axios';
 
 function App() {
+  axios.defaults.baseURL =
+    process.env.REACT_APP_SERVER_URL || 'http://localhost:1337';
+  axios.defaults.headers.post['Content-Type'] = 'application/json';
   return (
     <>
       <Router>

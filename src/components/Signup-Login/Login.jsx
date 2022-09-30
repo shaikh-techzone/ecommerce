@@ -15,7 +15,7 @@ const Login = () => {
 					</div>
 					<div className='row' style={{ justifyContent: "center" }}>
 						<div className='col-md-6'>
-							<div className='login-form'>
+							<form className='login-form'>
 								<div className='row'>
 									<div className='col-md-6'>
 										<label>E-mail / Username</label>
@@ -33,7 +33,7 @@ const Login = () => {
 											placeholder='Password'
 										/>
 									</div>
-									<div className='col-md-12'>
+									{/* <div className='col-md-12'>
 										<div className='custom-control custom-checkbox'>
 											<input
 												type='checkbox'
@@ -44,12 +44,12 @@ const Login = () => {
 												Keep me signed in
 											</label>
 										</div>
-									</div>
+									</div> */}
 									<div className='col-md-12'>
 										<button className='btn'>Submit</button>
 									</div>
 								</div>
-							</div>
+							</form>
 						</div>
 					</div>
 				</div>
