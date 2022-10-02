@@ -554,7 +554,7 @@ button.btn {
   opacity: 1;
 }
 
-.product-item .product-image .product-action a {
+.product-item .product-image .product-action span {
   display: inline-block;
   width: 40px;
   height: 40px;
@@ -566,11 +566,11 @@ button.btn {
   background: #3F69AA;
 }
 
-.product-item .product-image .product-action a:last-child {
+.product-item .product-image .product-action span:last-child {
   margin-right: 0;
 }
 
-.product-item .product-image .product-action a:hover {
+.product-item .product-image .product-action span:hover {
   color: #3F69AA;
   background: #ffffff;
 }

@@ -15,42 +15,42 @@ import brand6 from "../../img/brand-6.png";
 // };
 
 const Brands = () => {
-  return (
-    <>
-      <div class="brand">
-        <div class="container">
-          <div class="section-header">
-            <h3>Our Brands</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              viverra at massa sit amet ultricies. Nullam consequat, mauris non
-              interdum cursus
-            </p>
-          </div>
-          <div class="brand-slider">
-            <div class="brand-item">
-              <img src={brand1} alt="" />
-            </div>
-            <div class="brand-item">
-              <img src={brand2} alt="" />
-            </div>
-            <div class="brand-item">
-              <img src={brand3} alt="" />
-            </div>
-            <div class="brand-item">
-              <img src={brand4} alt="" />
-            </div>
-            <div class="brand-item">
-              <img src={brand5} alt="" />
-            </div>
-            <div class="brand-item">
-              <img src={brand6} alt="" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<div className='brand'>
+				<div className='container'>
+					<div className='section-header'>
+						<h3>Our Brands</h3>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+							viverra at massa sit amet ultricies. Nullam consequat, mauris non
+							interdum cursus
+						</p>
+					</div>
+					<div className='brand-slider'>
+						<div className='brand-item'>
+							<img src={brand1} alt='' />
+						</div>
+						<div className='brand-item'>
+							<img src={brand2} alt='' />
+						</div>
+						<div className='brand-item'>
+							<img src={brand3} alt='' />
+						</div>
+						<div className='brand-item'>
+							<img src={brand4} alt='' />
+						</div>
+						<div className='brand-item'>
+							<img src={brand5} alt='' />
+						</div>
+						<div className='brand-item'>
+							<img src={brand6} alt='' />
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default Brands;

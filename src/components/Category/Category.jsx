@@ -6,46 +6,46 @@ import thirdimg from "../../img/category-3.jpg";
 import fourthimg from "../../img/category-4.jpg";
 
 const Category = () => {
-  return (
-    <>
-      <div class="category">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="category-img">
-                <img src={firstimg} alt="" />
-                <a class="category-name" href="">
-                  <h2>Category Name</h2>
-                </a>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="category-img">
-                <img src={secimg} alt="" />
-                <a class="category-name" href="">
-                  <h2>Category Name</h2>
-                </a>
-              </div>
-              <div class="category-img">
-                <img src={thirdimg} alt="" />
-                <a class="category-name" href="">
-                  <h2>Category Name</h2>
-                </a>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="category-img">
-                <img src={fourthimg} alt="" />
-                <a class="category-name" href="">
-                  <h2>Category Name</h2>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<div className='category'>
+				<div className='container-fluid'>
+					<div className='row'>
+						<div className='col-md-4'>
+							<div className='category-img'>
+								<img src={firstimg} alt='' />
+								<a className='category-name' href=''>
+									<h2>Category Name</h2>
+								</a>
+							</div>
+						</div>
+						<div className='col-md-4'>
+							<div className='category-img'>
+								<img src={secimg} alt='' />
+								<a className='category-name' href=''>
+									<h2>Category Name</h2>
+								</a>
+							</div>
+							<div className='category-img'>
+								<img src={thirdimg} alt='' />
+								<a className='category-name' href=''>
+									<h2>Category Name</h2>
+								</a>
+							</div>
+						</div>
+						<div className='col-md-4'>
+							<div className='category-img'>
+								<img src={fourthimg} alt='' />
+								<a className='category-name' href=''>
+									<h2>Category Name</h2>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default Category;

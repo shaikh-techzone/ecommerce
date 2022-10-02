@@ -1,5 +1,5 @@
 import { Pagination } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DropDown from "../components/Products/Dropdown";
 import Prodlist from "../components/Products/Prodlist";
@@ -25,24 +25,25 @@ const Product = () => {
 	useEffect(() => {
 		dispatch(
 			fetchProducts(
+				// `/api/products?filters[available]=true&populate=image&pagination[page]=${currentPageNumber}&pagination[pageSize]=${itemsPerPage}`
 				`/api/products?populate=image&pagination[page]=${currentPageNumber}&pagination[pageSize]=${itemsPerPage}`
 			)
 		);
 	}, [itemsPerPage, currentPageNumber]);
 	return (
 		<>
-			<div class='product-view'>
-				<div class='container'>
-					<div class='row'>
-						<div class='col-md-9'>
-							<div class='row'>
-								<div class='col-lg-12'>
-									<div class='row'>
-										<div class='col-md-8'>
+			<div className='product-view'>
+				<div className='container'>
+					<div className='row'>
+						<div className='col-md-9'>
+							<div className='row'>
+								<div className='col-lg-12'>
+									<div className='row'>
+										<div className='col-md-8'>
 											<Searchbox />
 										</div>
-										<div class='col-md-4'>
-											<div class='product-short'>
+										<div className='col-md-4'>
+											<div className='product-short'>
 												<DropDown />
 											</div>
 										</div>
@@ -63,7 +64,7 @@ const Product = () => {
 									})
 								)}
 								{/* // <Prodlist /> */}
-								<div class='col-lg-12'>
+								<div className='col-lg-12'>
 									<nav aria-label='Page navigation example'>
 										<Pagination
 											className='pagination justify-content-center'
@@ -90,4 +91,4 @@ const Product = () => {
 	);
 };
 
-export default Product;
+export default memo(Product);

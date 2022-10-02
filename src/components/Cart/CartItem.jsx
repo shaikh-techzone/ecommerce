@@ -1,14 +1,22 @@
 // import React from 'react'
 
 import { useShoppingCart } from "../../context/Context";
-import { imageUrlFormatter, placeholderImageUrl } from "../../utilities";
+import {
+	convertToUSD,
+	imageUrlFormatter,
+	placeholderImageUrl,
+} from "../../utilities";
+import { IncreaseDecrease } from "../Button/IncreaseDecrease";
 
 const CartItem = ({ id, quantity, productsInCart }) => {
 	// let qty = quantity;
 	const { increaseCartQuantity, decreaseCartQuantity, removeFromCart } =
 		useShoppingCart();
 	const item = productsInCart?.find((product) => product.id === id)?.attributes;
+	// console.log(item);
+	// console.log(quantity);
 	if (item == null) return null;
+	// console.log(item);
 	return (
 		<>
 			<tr>
@@ -27,23 +35,13 @@ const CartItem = ({ id, quantity, productsInCart }) => {
 				<td>
 					<p>{item.title}</p>
 				</td>
-				<td>$22</td>
+				<td>{convertToUSD(item.price)}</td>
 				<td>
 					<div className='qty'>
-						<button
-							className='btn-minus'
-							onClick={() => decreaseCartQuantity(id)}>
-							<i className='fa fa-minus'></i>
-						</button>
-						<input type='text' value={qty} />
-						<button
-							className='btn-plus'
-							onClick={() => quantity !== qty && increaseCartQuantity(id)}>
-							<i className='fa fa-plus'></i>
-						</button>
+						<IncreaseDecrease id={id} qty={quantity} quantity={item.quantity} />
 					</div>
 				</td>
-				<td>$22</td>
+				<td>{convertToUSD(item.price * quantity)}</td>
 				<td>
 					<button onClick={() => removeFromCart(id)}>
 						<i className='fa fa-trash'></i>

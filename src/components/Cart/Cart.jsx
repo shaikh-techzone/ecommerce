@@ -11,7 +11,6 @@ const Cart = () => {
 	const { isLoading, error, productsInCart } = useSelector(
 		(state) => state.product
 	);
-
 	useEffect(() => {
 		const filterIds = cartItems
 			.map((item, index) => `filters[id][$in][${index}]=${item.id}`)
@@ -22,7 +21,7 @@ const Cart = () => {
 	}, [cartItems.length]);
 	return (
 		<>
-			{" "}
+			{/* {" "} */}
 			{!isLoading && error && <h1>{error}</h1>}
 			{isLoading ? (
 				<h1>Loading ...</h1>
@@ -66,6 +65,7 @@ const Cart = () => {
 											<span>
 												{convertToUSD(
 													cartItems.reduce((total, cartItem) => {
+														// console.log(total);
 														const item = productsInCart?.find(
 															(i) => i.id === cartItem.id
 														)?.attributes;
@@ -77,10 +77,25 @@ const Cart = () => {
 											</span>
 										</p>
 										<p>
-											Shipping Cost<span>$1</span>
+											Shipping Cost<span>{convertToUSD(150)}</span>
 										</p>
 										<h4>
-											Grand Total<span>$23</span>
+											Grand Total
+											<span>
+												{convertToUSD(
+													cartItems.reduce((total, cartItem) => {
+														// console.log(total);
+														const item = productsInCart?.find(
+															(i) => i.id === cartItem.id
+														)?.attributes;
+														return (
+															total +
+															(item?.price || 0) * cartItem.quantity +
+															150
+														);
+													}, 0)
+												)}
+											</span>
 										</h4>
 									</div>
 									<div className='cart-btn'>
@@ -93,7 +108,9 @@ const Cart = () => {
 					</div>
 				</div>
 			) : (
-				<h2>No items in cart</h2>
+				<h2 style={{ textAlign: "center", marginTop: "10px" }}>
+					No items in cart
+				</h2>
 			)}
 		</>
 	);

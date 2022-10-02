@@ -8,6 +8,7 @@ import {
 	imageUrlFormatter,
 	placeholderImageUrl,
 } from "../../utilities";
+import { IncreaseDecrease } from "../Button/IncreaseDecrease";
 
 const Prodlist = ({
 	product: { id, title, price, image, description, quantity },
@@ -22,7 +23,7 @@ const Prodlist = ({
 	return (
 		<>
 			<div
-				class='col-lg-4'
+				className='col-lg-4'
 				// key={index}
 				// onClick={() => {
 				// 	if (!id) {
@@ -31,9 +32,9 @@ const Prodlist = ({
 				// 	}
 				// }}
 			>
-				<div class='product-item'>
-					<div class='product-image'>
-						<Link to={`/product/${id}`}>
+				<div className='product-item'>
+					<div className='product-image'>
+						<Link to={`/products/${id}`}>
 							<img
 								src={
 									image?.data
@@ -43,31 +44,55 @@ const Prodlist = ({
 								alt={title}
 							/>
 						</Link>
-						<div class='product-action'>
-							<NavLink to='#'>
-								{qty === 0 ? <i class='fa fa-cart-plus'></i> : null}
-							</NavLink>
+						<div className='product-action'>
+							{quantity === 0 ? (
+								<span>
+									<i className='fa fa-ban'></i>
+								</span>
+							) : qty === 0 ? (
+								<span onClick={() => increaseCartQuantity(id)}>
+									<i className='fa fa-cart-plus'></i>
+								</span>
+							) : (
+								<span>
+									<i className='fa fa-ban'></i>
+								</span>
+							)}
+							{/* {quantity || qty === 0 ? (
+								<span onClick={() => increaseCartQuantity(id)}>
+									<i className='fa fa-cart-plus'></i>
+								</span>
+							) : (
+								<span>
+									<i className='fa fa-ban'></i>
+								</span>
+							)} */}
 							{/* <NavLink to='#'>
-								<i class='fa fa-heart'></i>
+								<i className='fa fa-heart'></i>
 							</NavLink>
 							<NavLink to='#'>
-								<i class='fa fa-search'></i>
+								<i className='fa fa-search'></i>
 							</NavLink> */}
 						</div>
 					</div>
-					<div class='product-content'>
-						<div class='title'>
+					<div className='product-content'>
+						<div className='title'>
 							{/* <NavLink to='#'>{prod.name}</NavLink> */}
 							{title}
 						</div>
-						<div class='ratting'>
-							<i class='fa fa-star'></i>
-							<i class='fa fa-star'></i>
-							<i class='fa fa-star'></i>
-							<i class='fa fa-star'></i>
-							<i class='fa fa-star'></i>
+						<div className='ratting'>
+							<i className='fa fa-star'></i>
+							<i className='fa fa-star'></i>
+							<i className='fa fa-star'></i>
+							<i className='fa fa-star'></i>
+							<i className='fa fa-star'></i>
 						</div>
-						<div class='price'>{convertToUSD(price)}</div>
+						<div className='price'>{convertToUSD(price)}</div>
+						{quantity === 0 ? (
+							<div>
+								<p style={{ color: "red" }}>out of stock</p>
+							</div>
+						) : null}
 					</div>
 				</div>
 			</div>

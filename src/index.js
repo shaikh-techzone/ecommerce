@@ -5,11 +5,14 @@ import App from './App';
 import 'antd/dist/antd.css';
 import { Provider } from "react-redux";
 import store from "./store";
+import { ShoppingCartProvider } from './context/Context';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <App />
+    <ShoppingCartProvider>
+      <App />
+    </ShoppingCartProvider>
   </Provider>
 );

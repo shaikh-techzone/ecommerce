@@ -1,9 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useShoppingCart } from "../../context/Context";
 // import "./Header.css";
 import logo from "../../img/logo.png";
 
-const header = () => {
+const Header = () => {
+	const { cartQuantity } = useShoppingCart();
 	return (
 		<>
 			<div className='top-header'>
@@ -45,7 +47,7 @@ const header = () => {
 								<div className='cart'>
 									<NavLink to={"/cart"}>
 										<i className='fa fa-cart-plus'></i>
-										<span>(0)</span>
+										<span>({cartQuantity})</span>
 									</NavLink>
 								</div>
 							</div>
@@ -57,4 +59,4 @@ const header = () => {
 	);
 };
 
-export default header;
+export default Header;

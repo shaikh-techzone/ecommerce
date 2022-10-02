@@ -1,6 +1,6 @@
 import React from "react";
 // import "./Navbar.css";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
 	return (
@@ -8,9 +8,9 @@ const Navbar = () => {
 			<div className='header'>
 				<div className='container'>
 					<nav className='navbar navbar-expand-md bg-dark navbar-dark'>
-						<NavLink to={"/"} className='navbar-brand'>
+						<Link to={"/"} className='navbar-brand'>
 							MENU
-						</NavLink>
+						</Link>
 						<button
 							type='button'
 							className='navbar-toggler'
@@ -23,12 +23,12 @@ const Navbar = () => {
 							className='collapse navbar-collapse justify-content-between'
 							id='navbarCollapse'>
 							<div className='navbar-nav m-auto'>
-								<NavLink to='/' className='nav-item nav-link '>
+								<Link to='/' className='nav-item nav-link '>
 									Home
-								</NavLink>
-								<NavLink to='/products' className='nav-item nav-link'>
+								</Link>
+								<Link to='/products' className='nav-item nav-link'>
 									Products
-								</NavLink>
+								</Link>
 								{/* <div className='nav-item dropdown'>
 									<a
 										href='#'
@@ -60,9 +60,9 @@ const Navbar = () => {
 										</a>
 									</div>
 								</div> */}
-								<NavLink to='/contact' className='nav-item nav-link'>
+								<Link to='/contact' className='nav-item nav-link'>
 									Contact Us
-								</NavLink>
+								</Link>
 							</div>
 						</div>
 					</nav>

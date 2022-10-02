@@ -4,9 +4,9 @@ import category1 from "../../img/category-1.jpg";
 const Sidebar = () => {
 	return (
 		<>
-			<div class='col-md-3'>
-				<div class='sidebar-widget category'>
-					<h2 class='title'>Category</h2>
+			<div className='col-md-3'>
+				<div className='sidebar-widget category'>
+					<h2 className='title'>Category</h2>
 					<ul>
 						<li>
 							<a href='#'>Lorem Ipsum</a>
@@ -35,15 +35,15 @@ const Sidebar = () => {
 					</ul>
 				</div>
 
-				{/* <div class="sidebar-widget image">
-          <h2 class="title">Featured Product</h2>
+				{/* <div className="sidebar-widget image">
+          <h2 className="title">Featured Product</h2>
           <a href="#">
             <img src={category1} alt="Image" />
           </a>
         </div> */}
 
-				<div class='sidebar-widget brands'>
-					<h2 class='title'>Our Brands</h2>
+				<div className='sidebar-widget brands'>
+					<h2 className='title'>Our Brands</h2>
 					<ul>
 						<li>
 							<a href='#'>Nulla </a>
@@ -72,8 +72,8 @@ const Sidebar = () => {
 					</ul>
 				</div>
 
-				{/* <div class="sidebar-widget tag">
-          <h2 class="title">Tags Cloud</h2>
+				{/* <div className="sidebar-widget tag">
+          <h2 className="title">Tags Cloud</h2>
           <a href="#">Lorem ipsum</a>
           <a href="#">Vivamus</a>
           <a href="#">Phasellus</a>

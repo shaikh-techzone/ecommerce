@@ -13,9 +13,30 @@ import LoginPage from './pages/LoginPage';
 import axios from 'axios';
 
 function App() {
-  axios.defaults.baseURL =
-    process.env.REACT_APP_SERVER_URL || 'http://localhost:1337';
+  axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
   axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+  axios.interceptors.request.use(
+    (request) => {
+      // Do something before request is sent
+
+      const methods = ['post', 'put', 'delete'];
+
+      if (methods.includes(request.method)) {
+        request.headers = {
+          ...request.headers,
+          'Content-Type': 'application/json',
+          // Authorization: `Bearer ${constant.TOKEN}`,
+        };
+      }
+
+      return request;
+    },
+    (error) => {
+      // Do something with request error
+      return Promise.reject(error);
+    }
+  );
   return (
     <>
       <Router>

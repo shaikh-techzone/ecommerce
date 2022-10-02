@@ -5,7 +5,7 @@ const Signup = () => {
 		<>
 			<div className='login'>
 				<div className='container'>
-					<div class='section-header'>
+					<div className='section-header'>
 						<h3>SignUp</h3>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
