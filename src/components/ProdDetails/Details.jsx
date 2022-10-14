@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useShoppingCart } from "../../context/Context";
+import { useAuthAndCartContext } from "../../context/Context";
 import { useRead } from "../../hooks";
 import Sidebar from "../Products/Sidebar";
 // import RelatedProd from "./RelatedProd";
@@ -12,7 +12,7 @@ const Details = ({ id, qty, attributes }) => {
 			<div className='product-detail'>
 				<div className='container'>
 					<div className='row'>
-						<div className='col-lg-9'>
+						<div className='col-lg-12'>
 							{/* Slected Product  */}
 							<SelectedProd id={id} qty={qty} attributes={attributes} />
 
@@ -21,7 +21,7 @@ const Details = ({ id, qty, attributes }) => {
 						</div>
 
 						{/* Sidebar from Product Page Component */}
-						<Sidebar />
+						{/* <Sidebar /> */}
 					</div>
 				</div>
 			</div>

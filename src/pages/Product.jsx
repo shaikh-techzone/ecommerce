@@ -7,21 +7,23 @@ import Searchbox from "../components/Products/searchbox";
 import Sidebar from "../components/Products/Sidebar";
 import { fetchProducts } from "../store/slices/products";
 
+const showTotal = (total) => `${total} Total Items: `;
 const Product = () => {
-	const showTotal = (total) => `${total} Total Items: `;
-	const [itemsPerPage, setItemsPerPage] = useState(10);
-	const [currentPageNumber, setCurrentPageNumber] = useState(1);
 	const { isLoading, products, error, meta } = useSelector(
 		(state) => state.product
 	);
+	const [itemsPerPage, setItemsPerPage] = useState(10);
+	const [currentPageNumber, setCurrentPageNumber] = useState(1);
 	const dispatch = useDispatch();
 
 	const onShowSizeChange = (current, pageSize) => {
 		setItemsPerPage(pageSize);
 	};
+
 	const onPageChange = (page) => {
 		setCurrentPageNumber(page);
 	};
+
 	useEffect(() => {
 		dispatch(
 			fetchProducts(
@@ -35,9 +37,9 @@ const Product = () => {
 			<div className='product-view'>
 				<div className='container'>
 					<div className='row'>
-						<div className='col-md-9'>
+						<div className='col-md-12'>
 							<div className='row'>
-								<div className='col-lg-12'>
+								{/* <div className='col-lg-12'>
 									<div className='row'>
 										<div className='col-md-8'>
 											<Searchbox />
@@ -48,7 +50,7 @@ const Product = () => {
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> */}
 								{!isLoading && error && <h4>{error}</h4>}
 								{isLoading ? (
 									<h3>Loading...</h3>
@@ -67,7 +69,6 @@ const Product = () => {
 								<div className='col-lg-12'>
 									<nav aria-label='Page navigation example'>
 										<Pagination
-											className='pagination justify-content-center'
 											showSizeChanger
 											onShowSizeChange={onShowSizeChange}
 											total={meta?.total}
@@ -78,12 +79,13 @@ const Product = () => {
 											hideOnSinglePage={true}
 											pageSizeOptions={["10", "50", "100", "200"]}
 											responsive={true}
+											defaultCurrent={currentPageNumber}
 										/>
 									</nav>
 								</div>
 							</div>
 						</div>
-						<Sidebar />
+						{/* <Sidebar /> */}
 					</div>
 				</div>
 			</div>

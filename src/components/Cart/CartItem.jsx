@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import { useShoppingCart } from "../../context/Context";
+import { useAuthAndCartContext } from "../../context/Context";
 import {
 	convertToUSD,
 	imageUrlFormatter,
@@ -11,7 +11,7 @@ import { IncreaseDecrease } from "../Button/IncreaseDecrease";
 const CartItem = ({ id, quantity, productsInCart }) => {
 	// let qty = quantity;
 	const { increaseCartQuantity, decreaseCartQuantity, removeFromCart } =
-		useShoppingCart();
+		useAuthAndCartContext();
 	const item = productsInCart?.find((product) => product.id === id)?.attributes;
 	// console.log(item);
 	// console.log(quantity);

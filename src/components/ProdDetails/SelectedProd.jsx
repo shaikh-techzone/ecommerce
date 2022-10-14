@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Products } from "../../product";
-import { useShoppingCart } from "../../context/Context";
+import { useAuthAndCartContext } from "../../context/Context";
 import { useRead } from "../../hooks/index";
 import { IncreaseDecrease } from "../Button/IncreaseDecrease";
 import {

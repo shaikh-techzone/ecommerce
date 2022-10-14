@@ -1,11 +1,11 @@
 import React from "react";
-import { useShoppingCart } from "../../context/Context";
+import { useAuthAndCartContext } from "../../context/Context";
 
 export const IncreaseDecrease = ({ id, quantity, qty }) => {
 	// qty = item in cart
 	// quantity = item in stock
 	const { increaseCartQuantity, decreaseCartQuantity, removeFromCart } =
-		useShoppingCart();
+		useAuthAndCartContext();
 	return (
 		<>
 			<button

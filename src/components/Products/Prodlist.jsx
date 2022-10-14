@@ -1,7 +1,7 @@
-import { Pagination } from "antd";
+import { Pagination, Rate } from "antd";
 import React, { useState } from "react";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
-import { useShoppingCart } from "../../context/Context";
+import { useAuthAndCartContext } from "../../context/Context";
 import {
 	convertToUSD,
 	imageErrorHandler,
@@ -13,7 +13,7 @@ import { IncreaseDecrease } from "../Button/IncreaseDecrease";
 const Prodlist = ({
 	product: { id, title, price, image, description, quantity },
 }) => {
-	const { getItemQuantity, increaseCartQuantity } = useShoppingCart();
+	const { getItemQuantity, increaseCartQuantity } = useAuthAndCartContext();
 
 	const qty = getItemQuantity(id);
 
@@ -22,16 +22,7 @@ const Prodlist = ({
 	// const { id } = useParams();
 	return (
 		<>
-			<div
-				className='col-lg-4'
-				// key={index}
-				// onClick={() => {
-				// 	if (!id) {
-				// 		navigate(`/products/${prod?.id}`);
-				// 		console.log("click", id);
-				// 	}
-				// }}
-			>
+			<div className='col-lg-3'>
 				<div className='product-item'>
 					<div className='product-image'>
 						<Link to={`/products/${id}`}>
@@ -86,6 +77,13 @@ const Prodlist = ({
 							<i className='fa fa-star'></i>
 							<i className='fa fa-star'></i>
 							<i className='fa fa-star'></i>
+							{/* <Rate
+								tooltips={description}
+								className='text-indigo-600 pt-4'
+								allowHalf
+								disabled
+								defaultValue={attributes?.averageRating}
+							/> */}
 						</div>
 						<div className='price'>{convertToUSD(price)}</div>
 						{quantity === 0 ? (

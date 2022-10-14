@@ -1,17 +1,21 @@
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useShoppingCart } from "../../context/Context";
+import { constant } from "../../constants";
+import { useAuthAndCartContext } from "../../context/Context";
 import { fetchCartProductsList } from "../../store/slices/products";
-import { convertToUSD } from "../../utilities";
+import { convertToUSD, errors } from "../../utilities";
 import CheckoutSummary from "./CheckoutSummary";
 // import "./Checkout.css";
-
+const stripePromise = loadStripe(constant.STRIPE_PK);
 const Checkout = () => {
 	const dispatch = useDispatch();
 	const { isLoading, error, productsInCart } = useSelector(
 		(state) => state.product
 	);
-	const { cartItems, cartQuantity, clearCart } = useShoppingCart();
+	const { cartItems, cartQuantity, clearCart, user } = useAuthAndCartContext();
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const filterIds = cartItems
@@ -41,6 +45,53 @@ const Checkout = () => {
 	// console.log(checked);
 	// console.log(radio1);
 	// console.log(radio2);
+	const calculateTotal = (cartItems) => {
+		if (productsInCart?.length > 0) {
+			return cartItems.reduce((total, cartItem) => {
+				const item = productsInCart?.find(
+					(i) => i.id === cartItem.id
+				)?.attributes;
+				return total + (item?.price || 0) * cartItem.quantity;
+			}, 0);
+		}
+	};
+
+	const checkout = async () => {
+		// https://dmitripavlutin.com/remove-object-property-javascript/
+
+		try {
+			setLoading(true);
+			if (!user?.user?.billingAddress) {
+				errors("Please fill address filled first for shipping order!");
+				return;
+			}
+
+			const { id, ...billingAddress } = user?.user?.billingAddress;
+			const order = {
+				total: calculateTotal(cartItems),
+				user: user?.user.id,
+				status: "unpaid",
+				products: cartItems?.map((item) => item.id),
+				quantityWithProductIds: cartItems,
+				address: billingAddress,
+			};
+
+			const stripe = await stripePromise;
+			const { data } = await axios(`/api/orders`, {
+				method: "POST",
+				data: JSON.stringify({ data: order }),
+			});
+			const result = await stripe.redirectToCheckout({
+				sessionId: data?.session_id,
+			});
+			console.log({ result });
+		} catch (error) {
+			errors(error.message);
+			console.log({ error: error.message });
+		} finally {
+			setLoading(false);
+		}
+	};
 	return (
 		<>
 			{!isLoading && error && <h1>{error}</h1>}
@@ -50,7 +101,7 @@ const Checkout = () => {
 				<div className='checkout'>
 					<div className='container'>
 						<div className='row'>
-							<div className='col-md-7'>
+							{/* <div className='col-md-7'>
 								<div className='billing-address'>
 									<h2>Billing Address</h2>
 									<div className='row'>
@@ -127,116 +178,13 @@ const Checkout = () => {
 												placeholder='ZIP Code'
 											/>
 										</div>
-										{/* <div className='col-md-12'>
-										<div className='custom-control custom-checkbox'>
-											<input
-												type='checkbox'
-												className='custom-control-input'
-												id='newaccount'
-											/>
-											<label className='custom-control-label' for='newaccount'>
-												Create an account
-											</label>
-										</div>
-									</div>
-									<div className='col-md-12'>
-										<div className='custom-control custom-checkbox'>
-											<input
-												type='checkbox'
-												className='custom-control-input'
-												id='shipto'
-												checked={checked}
-												onChange={handleCheckbox}
-											/>
-											<label className='custom-control-label' for='shipto'>
-												Ship to different address
-											</label>
-										</div>
-									</div> */}
-									</div>
-								</div>
-								{/* {checked ? (
-								<div className='shipping-address'>
-									<h2>Shipping Address</h2>
-									<div className='row'>
-										<div className='col-md-6'>
-											<label>First Name</label>
-											<input
-												className='form-control'
-												type='text'
-												placeholder='First Name'
-											/>
-										</div>
-										<div className='col-md-6'>
-											<label>Last Name"</label>
-											<input
-												className='form-control'
-												type='text'
-												placeholder='Last Name'
-											/>
-										</div>
-										<div className='col-md-6'>
-											<label>E-mail</label>
-											<input
-												className='form-control'
-												type='text'
-												placeholder='E-mail'
-											/>
-										</div>
-										<div className='col-md-6'>
-											<label>Mobile No</label>
-											<input
-												className='form-control'
-												type='text'
-												placeholder='Mobile No'
-											/>
-										</div>
 										<div className='col-md-12'>
-											<label>Address</label>
-											<input
-												className='form-control'
-												type='text'
-												placeholder='Address'
-											/>
-										</div>
-										<div className='col-md-6'>
-											<label>Country</label>
-											<select className='custom-select'>
-												<option selected>United States</option>
-												<option>Afghanistan</option>
-												<option>Albania</option>
-												<option>Algeria</option>
-											</select>
-										</div>
-										<div className='col-md-6'>
-											<label>City</label>
-											<input
-												className='form-control'
-												type='text'
-												placeholder='City'
-											/>
-										</div>
-										<div className='col-md-6'>
-											<label>State</label>
-											<input
-												className='form-control'
-												type='text'
-												placeholder='State'
-											/>
-										</div>
-										<div className='col-md-6'>
-											<label>ZIP Code</label>
-											<input
-												className='form-control'
-												type='text'
-												placeholder='ZIP Code'
-											/>
+											<button>Update</button>
 										</div>
 									</div>
 								</div>
-							) : null} */}
-							</div>
-							<div className='col-md-5'>
+							</div> */}
+							<div className='col-md-12'>
 								<div className='checkout-summary'>
 									<h2>Order Summary</h2>
 									<div className='checkout-content'>
@@ -248,7 +196,7 @@ const Checkout = () => {
 												productsInCart={productsInCart}
 											/>
 										))}
-										<p className='sub-total'>
+										{/* <p className='sub-total'>
 											Sub Total
 											<span>
 												{convertToUSD(
@@ -266,7 +214,7 @@ const Checkout = () => {
 										</p>
 										<p className='ship-cost'>
 											Shipping Cost<span>{convertToUSD(150)}</span>
-										</p>
+										</p> */}
 										<h4>
 											Grand Total
 											<span>
@@ -277,9 +225,7 @@ const Checkout = () => {
 															(i) => i.id === cartItem.id
 														)?.attributes;
 														return (
-															total +
-															(item?.price || 0) * cartItem.quantity +
-															150
+															total + (item?.price || 0) * cartItem.quantity
 														);
 													}, 0)
 												)}
@@ -341,7 +287,7 @@ const Checkout = () => {
 									</div>
 								</div> */}
 									<div className='checkout-btn'>
-										<button>Place Order</button>
+										<button onClick={checkout}>Place Order</button>
 									</div>
 								</div>
 							</div>
